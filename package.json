@@ -1,8 +1,8 @@
 {
   "name": "mobizen_sms",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Rodrigo Zan",
+  "homepage": "https://github.com/rodrigozan",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4300",
@@ -60,5 +60,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.0"
   },
-  "description": "An Ionic project"
+  "description": "A send sms with Ionic and Mobizen"
 }
