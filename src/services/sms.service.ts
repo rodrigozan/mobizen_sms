@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http'
+import { Injectable } from '@angular/core'
 import { ISendSms } from '../interfaces/global.interfaces'
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment.prod'
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +12,7 @@ export class SmsService {
         apiServer: environment.api_mobizen_url,
         apiVersion: environment.api_mobizen_version,
         format: environment.api_mobizen_format
-    };
+    }
 
     constructor(private http: HttpClient) {}
 
@@ -23,28 +23,28 @@ export class SmsService {
             output: this.apiEnvironment.format,
             api: this.apiEnvironment.apiVersion,
             apiKey: this.apiEnvironment.apiKey
-        }).toString();
+        }).toString()
     }
 
     async sendSms(recipients: string[], text: string): Promise<string[]> {
-        const url = `${this.apiEnvironment.apiServer}/service/Message/sendsmsmessage`;
+        const url = `${this.apiEnvironment.apiServer}/service/Message/sendsmsmessage`
         const headers = new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded',
-        });
+        })
 
         const sendRequests = recipients.map(async (recipient) => {
-            const body = this.createRequestBody(recipient, text);
+            const body = this.createRequestBody(recipient, text)
             try {                
-                const response = await this.http.post<string>(url, body, { headers }).toPromise();                    
-                return response;
+                const response = await this.http.post<string>(url, body, { headers }).toPromise()                    
+                return response
             } catch (e) {
-                console.log(e)
-                return e.status === 0 
+                const error = e as HttpErrorResponse
+                return error.status === 0 
                     ? 'A requisição foi cancelada devido a um timeout.' 
-                    : `Erro: ${e.statusText}`;
+                    : `Erro: ${error.statusText}`
             }
-        });
+        })
 
-        return Promise.all(sendRequests);
+        return Promise.all(sendRequests).then(results => results.map(result => result || 'Erro desconhecido'))
     }
 }

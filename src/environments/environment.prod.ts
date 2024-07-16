@@ -4,4 +4,4 @@ export const environment = {
   api_mobizen_url: 'https://api.mobizon.com.br',
   api_mobizen_version: 'v1',
   api_mobizen_format: 'json'
-};
+}

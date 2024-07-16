@@ -13,18 +13,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
+  <ion-content id="container" class="ion-padding">
     <h2>Enviar SMS</h2>
     <form (ngSubmit)="sendSms()">
-      <div>
-        <label for="recipients">Números dos destinatários (separados por vírgula):</label>
-        <ion-input id="recipients" [(ngModel)]="recipients" name="recipients" required></ion-input>
-      </div>
-      <div>
-        <label for="text">Mensagem:</label>
-        <ion-textarea id="text" [(ngModel)]="text" name="text" required></ion-textarea>
-      </div>
-      <ion-button type="submit">Enviar</ion-button>
+      <ion-item>
+        <ion-input placeholder="Nº dos destinatários (separados por vírgula)" id="recipients" [(ngModel)]="recipients" name="recipients" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea placeholder="Mensagem" id="text" [(ngModel)]="text" name="text" required></ion-textarea>
+      </ion-item>
+      <ion-button type="submit" class="ion-padding-top">Enviar</ion-button>
     </form>
     <div *ngIf="results.length">
       <h3>Resultados:</h3>
@@ -32,5 +30,5 @@
         <li *ngFor="let result of results">{{ result }}</li>
       </ul>
     </div>
-  </div>
+  </ion-content>
 </ion-content>
