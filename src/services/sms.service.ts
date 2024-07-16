@@ -35,16 +35,13 @@ export class SmsService {
         const sendRequests = recipients.map(async (recipient) => {
             const body = this.createRequestBody(recipient, text);
             try {                
-                const response = await this.http.post<string>(url, body, { headers }).toPromise();
-                console.log('response')
-                console.log(response);
-                console.log('---');               
-                
+                const response = await this.http.post<string>(url, body, { headers }).toPromise();                    
                 return response;
-            } catch (error) {
-                return error.status === 0 
+            } catch (e) {
+                console.log(e)
+                return e.status === 0 
                     ? 'A requisição foi cancelada devido a um timeout.' 
-                    : `Erro: ${error.statusText}`;
+                    : `Erro: ${e.statusText}`;
             }
         });
 
